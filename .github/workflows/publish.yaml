@@ -9,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: copy npmrc
+        run: cp ./.npmrc.ignore ./.npmrc
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - uses: actions/cache@v2
         with:
           path: ~/.npm
