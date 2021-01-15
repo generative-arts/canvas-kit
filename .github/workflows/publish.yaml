@@ -1,14 +1,24 @@
 name: Publish
 
+# on:
+#   release:
+#     types: [published]
+
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - "*"
+      - "!main"
+    tags-ignore:
+      - "*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: copy npmrc
+        run: cp ./.npmrc.ignore ./.npmrc
       - uses: actions/setup-node@v1
         with:
           node-version: 14
