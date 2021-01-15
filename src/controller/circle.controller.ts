@@ -1,10 +1,10 @@
 /* eslint-disable id-length */
+import { Coordinate } from '../types/Coordinate.type'
 import { Config } from '../types/Config.type'
 
 export interface CircleConfig {
   color: string
-  x: number
-  y: number
+  center: Coordinate
   r: number
 }
 
@@ -13,8 +13,8 @@ export class CircleController {
     config.ctx.beginPath()
     config.ctx.fillStyle = circleConfig.color
     config.ctx.arc(
-      circleConfig.x,
-      circleConfig.y,
+      circleConfig.center.x,
+      circleConfig.center.y,
       circleConfig.r,
       0,
       2 * Math.PI,
