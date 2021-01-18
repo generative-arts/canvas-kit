@@ -20,22 +20,40 @@ async function run() {
   const columnCount = 1000
   const rowCount = 1000
 
-  for (let i = 0; i < 1000; i += 50) {
-    RectangleController.rectangle(config, {
-      start: { x: i, y: i },
-      end: { x: 100, y: 100 },
-      fillColor: 'black',
-      strokeColor: 'white',
-    })
+  for (let i = 0; i <= 1000; i += 50) {
+    for (let j = 0; j <= 1000; j += 100) {
+      if (i % 100 === 0) {
+        let colour = 'yellow'
+        let colour2 = 'pink'
+      } else {
+        let colour = 'pink'
+        let colour2 = 'green'
+      }
+      RectangleController.rectangle(config, {
+        start: { x: i + j, y: i },
+        end: { x: 100, y: 100 },
+        fillColor: 'black',
+        strokeColor: colour,
+      })
+      RectangleController.rectangle(config, {
+        start: { x: i, y: i + j },
+        end: { x: 100, y: 100 },
+        fillColor: 'black',
+        strokeColor: colour2,
+      })
+    }
   }
+  /* BezierController.bezier(config, {
+      start: { x: 0, y: 1000 },
+      bezier1: { x: 0, y: 700 },
+      bezier2: { x: 0, y: 500 },
+      end: { x: 500, y: 500 },
+      color: 'yellow', 
+    }) 
 
-  BezierController.bezier(config, {
-    start: { x: 0, y: 0 },
-    bezier1: { x: 100, y: 0 },
-    bezier2: { x: 200, y: 100 },
-    end: { x: 400, y: 200 },
-    color: 'white',
-  })
+ 
+
+
 
   /*
   const rectWidth = config.width / columnCount
