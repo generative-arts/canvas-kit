@@ -20,14 +20,17 @@ async function run() {
   const columnCount = 1000
   const rowCount = 1000
 
+  let colour
+  let colour2
+
   for (let i = 0; i <= 1000; i += 50) {
     for (let j = 0; j <= 1000; j += 100) {
       if (i % 100 === 0) {
-        let colour = 'yellow'
-        let colour2 = 'pink'
+        colour = 'yellow'
+        colour2 = 'pink'
       } else {
-        let colour = 'pink'
-        let colour2 = 'green'
+        colour = 'pink'
+        colour2 = 'green'
       }
       RectangleController.rectangle(config, {
         start: { x: i + j, y: i },
