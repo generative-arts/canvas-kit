@@ -1,13 +1,11 @@
 /* eslint-disable id-length */
-import { RectangleController } from './controller/rectangle.controller'
-import { MathController } from './controller/utils/math.controller'
+import { BezierController } from './controller/bezier.controller'
 import * as path from 'path'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
+import { RectangleController } from './controller/rectangle.controller'
 import { Config } from './types/Config.type'
-import { BezierController } from 'controller/bezier.controller'
-import { FreeFormController } from 'controller/freeform.canvas'
 
 async function run() {
   let config: Config = {
