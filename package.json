@@ -19,6 +19,7 @@
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "try": "ts-node ./src/try.ts",
+    "example-ellipse": "ts-node ./src/example-ellipse.ts",
     "build": "tsc --p tsconfig.json",
     "dist": "node dist/index.js",
     "test": "jest --config jest.config.js --runInBand true",
