@@ -7,6 +7,8 @@ import { OutputController } from './controller/output.controller'
 import { RectangleController } from './controller/rectangle.controller'
 import { Config } from './types/Config.type'
 import { FreeFormController } from './controller/freeform.canvas'
+import { TriangleController } from './controller/triangle.controller'
+import { start } from 'repl'
 
 async function run() {
   let config: Config = {
@@ -16,18 +18,28 @@ async function run() {
     colors: ['#4C5270', '#F652A0', '#36EEE0', '#BCECE0'],
   }
   config = CanvasController.init(config)
-  config = BackgroundController.fill(config, 'black')
+  config = BackgroundController.fill(config, 'white')
 
-  for (let i = 0; i <= 1000; i += 500) {
-    FreeFormController.freeform(config, {
-      coordinates: [
-        { x: 0 + i, y: 0 + i },
-        { x: i + 500, y: i + 500 },
-        { x: 0 + i, y: 1000 },
-      ],
-      fillColor: 'white',
-    })
+  let colour
+  let colour2
+
+  for (let j = 0; j <= 1000; j += 100) {
+    for (let i = 0; i <= 1000; i += 200) {
+      if (j % 200 === 0) {
+        colour = 'black'
+      } else {
+        colour = 'pink'
+      }
+
+      TriangleController.triangle(config, {
+        fillColor: colour,
+        strokeColor: 'black',
+        start: { x: i, y: j },
+        lenght: 200,
+      })
+    }
   }
+
   /*
   let colour
   let colour2
@@ -54,7 +66,7 @@ async function run() {
         strokeColor: colour2,
       })
     }
-  }*/
+  } */
   /* BezierController.bezier(config, {
       start: { x: 0, y: 1000 },
       bezier1: { x: 0, y: 700 },
