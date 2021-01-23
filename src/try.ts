@@ -6,6 +6,7 @@ import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
 import { RectangleController } from './controller/rectangle.controller'
 import { Config } from './types/Config.type'
+import { FreeFormController } from './controller/freeform.canvas'
 
 async function run() {
   let config: Config = {
@@ -17,9 +18,17 @@ async function run() {
   config = CanvasController.init(config)
   config = BackgroundController.fill(config, 'black')
 
-  const columnCount = 1000
-  const rowCount = 1000
-
+  for (let i = 0; i <= 1000; i += 500) {
+    FreeFormController.freeform(config, {
+      coordinates: [
+        { x: 0 + i, y: 0 + i },
+        { x: i + 500, y: i + 500 },
+        { x: 0 + i, y: 1000 },
+      ],
+      fillColor: 'white',
+    })
+  }
+  /*
   let colour
   let colour2
 
@@ -35,8 +44,8 @@ async function run() {
       RectangleController.rectangle(config, {
         start: { x: i + j, y: i },
         end: { x: 100, y: 100 },
-        fillColor: 'black',
-        strokeColor: colour,
+        fillColor: colour2,
+        strokeColor: 'black',
       })
       RectangleController.rectangle(config, {
         start: { x: i, y: i + j },
@@ -45,20 +54,19 @@ async function run() {
         strokeColor: colour2,
       })
     }
-  }
+  }*/
   /* BezierController.bezier(config, {
       start: { x: 0, y: 1000 },
       bezier1: { x: 0, y: 700 },
       bezier2: { x: 0, y: 500 },
       end: { x: 500, y: 500 },
       color: 'yellow', 
-    }) 
-
- 
-
-
+    }) */
 
   /*
+  const columnCount = 1000
+  const rowCount = 1000
+
   const rectWidth = config.width / columnCount
   const rectHeight = config.height / rowCount
 
