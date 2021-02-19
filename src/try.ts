@@ -29,10 +29,8 @@ async function run() {
         fillColor:
           config.colors[MathController.random(0, config.colors.length - 1)],
         start: { x: column * rectWidth, y: row * rectHeight },
-        end: {
-          x: column * rectWidth + rectWidth,
-          y: row * rectHeight + rectHeight,
-        },
+        width: column * rectWidth + rectWidth,
+        height: row * rectHeight + rectHeight,
       })
     }
   }
