@@ -1,10 +1,11 @@
 /* eslint-disable id-length */
-import { RectangleController } from './controller/rectangle.controller'
-import { MathController } from './controller/utils/math.controller'
 import * as path from 'path'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
+import { RectangleController } from './controller/rectangle.controller'
+import { MathController } from './controller/utils/math.controller'
+import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
 
 async function run() {
@@ -26,11 +27,16 @@ async function run() {
   for (let row = 0; row < rowCount; row++) {
     for (let column = 0; column < columnCount; column++) {
       RectangleController.rectangle(config, {
-        fillColor:
-          config.colors[MathController.random(0, config.colors.length - 1)],
-        start: { x: column * rectWidth, y: row * rectHeight },
-        width: column * rectWidth + rectWidth,
-        height: row * rectHeight + rectHeight,
+        element: Element.RECTANGLE,
+        color: {
+          fill:
+            config.colors[MathController.random(0, config.colors.length - 1)],
+        },
+        parameters: {
+          start: { x: column * rectWidth, y: row * rectHeight },
+          width: column * rectWidth + rectWidth,
+          height: row * rectHeight + rectHeight,
+        },
       })
     }
   }
