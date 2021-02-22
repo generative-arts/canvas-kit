@@ -13,8 +13,8 @@ import { Config } from './types/Config.type'
 
 async function run() {
   let config: Config = {
-    width: 1000,
-    height: 1000,
+    width: 1080,
+    height: 1920,
     // colors: ['#C3E0E5', '#274472', '#5885AF', '#41729F'],
     colors: [
       '#0F0506',
@@ -38,12 +38,12 @@ async function run() {
   const lightElements = lightTaks / total
   const darkElements = darkTask / total
 
-  const columnCountDark = 1000 * darkElements
-  //const rowCountDark = 1000 * darkElements;
+  const columnCountDark = config.width * darkElements
+  //const rowCountDark = config.height * darkElements;
   console.log(columnCountDark)
 
-  const columnCountLight = 1000 * lightElements
-  //const rowCountLight = 1000 * lightElements;
+  const columnCountLight = config.width * lightElements
+  //const rowCountLight = config.height * lightElements;
   console.log(columnCountLight)
 
   //Bild mit hellen Farben und Formen
@@ -67,10 +67,10 @@ async function run() {
   for (let col = 0; col < columnCountLight; col++) {
     EllipseController.ellipse(config, {
       strokeColor: config.colors[MathController.random(3, 5)],
-      coordinate: { x: col, y: MathController.random(0, 1000) },
+      coordinate: { x: col, y: MathController.random(0, config.height) },
       radiusX: MathController.random(150, 300),
       radiusY: 100,
-      rotation: MathController.random(0, col),
+      rotation: MathController.random(0, config.width / 4),
     })
   }
 
@@ -80,11 +80,11 @@ async function run() {
     col++
   ) {
     EllipseController.ellipse(config, {
-      strokeColor: config.colors[MathController.random(0, 3)],
-      coordinate: { x: col, y: MathController.random(0, 1000) },
+      strokeColor: config.colors[MathController.random(0, 2)],
+      coordinate: { x: col, y: MathController.random(0, config.height) },
       radiusX: MathController.random(150, 300),
       radiusY: 100,
-      rotation: MathController.random(col, 1000),
+      rotation: MathController.random(col, config.width / 4),
     })
   }
   /*
