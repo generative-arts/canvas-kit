@@ -1,14 +1,10 @@
 /* eslint-disable id-length */
-import { BezierController } from './controller/bezier.controller'
 import * as path from 'path'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
-import { RectangleController } from './controller/rectangle.controller'
-import { Config } from './types/Config.type'
-import { FreeFormController } from './controller/freeform.canvas'
 import { TriangleController } from './controller/triangle.controller'
-import { start } from 'repl'
+import { Config } from './types/Config.type'
 
 async function run() {
   let config: Config = {
@@ -85,12 +81,15 @@ async function run() {
  for (let row = 2; row < rowCount - 500; row++) {
     for (let column = 2; column < columnCount- 500; column++) {
       RectangleController.rectangle(config, {
-        fillColor:
-          config.colors[MathController.random(0, config.colors.length - 1)],
-        start: { x: column * rectWidth, y: row * rectHeight },
-        end: {
-          x: column * rectWidth + rectWidth,
-          y: row * rectHeight + rectHeight,
+        element: Element.RECTANGLE,
+        color: {
+          fill:
+            config.colors[MathController.random(0, config.colors.length - 1)],
+        },
+        parameters: {
+          start: { x: column * rectWidth, y: row * rectHeight },
+          width: column * rectWidth + rectWidth,
+          height: row * rectHeight + rectHeight,
         },
       })
     }
