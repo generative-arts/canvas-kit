@@ -22,6 +22,7 @@
     "example-ellipse": "ts-node ./src/example-ellipse.ts",
     "example-bezier": "ts-node ./src/example-bezier.ts",
     "example-rectangle": "ts-node ./src/example-rectangle.ts",
+    "example-freeform": "ts-node ./src/example-freeform.ts",
     "build": "tsc --p tsconfig.json",
     "dist": "node dist/index.js",
     "test": "jest --config jest.config.js --runInBand true",
