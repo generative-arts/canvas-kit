@@ -24,7 +24,7 @@ async function run() {
     elements: {
       tasks: 10,
       exclusiveGateways: 5,
-      endEvents: 0,
+      endEvents: 4,
     },
   }
 

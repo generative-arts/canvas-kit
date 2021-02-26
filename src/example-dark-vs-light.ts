@@ -14,25 +14,20 @@ import { Config } from './types/Config.type'
 async function run() {
   let config: Config = {
     width: 1080,
-    height: 1920,
+    height: 1080,
     // colors: ['#C3E0E5', '#274472', '#5885AF', '#41729F'],
-    colors: [
-      '#0F0506',
-      '#32373B',
-      '#323C48',
-      '#42494D',
-      '#E2E2DF',
-      '#FFFFFF',
-      '#DBE0E6',
-      '#F5F5F4',
-    ],
+    // colors: ['#0F0506','#32373B','#323C48','#42494D','#E2E2DF','#FFFFFF','#DBE0E6','#F5F5F4', ],
+    colors: ['#7209b7', '#3a0ca3', '#266478', '#f72585', '#4895ef', '#4cc9f0'],
   }
+  const lightTaks = 77
+  const darkTask = 70
 
   config = CanvasController.init(config)
-  config = BackgroundController.fill(config, '#8797AB')
-
-  const lightTaks = 20
-  const darkTask = 10
+  if (lightTaks > darkTask) {
+    config = BackgroundController.fill(config, 'black') //'#8797AB'
+  } else {
+    config = BackgroundController.fill(config, 'white')
+  }
 
   const total = lightTaks + darkTask
   const lightElements = lightTaks / total
@@ -66,11 +61,14 @@ async function run() {
 
   for (let col = 0; col < columnCountLight; col++) {
     EllipseController.ellipse(config, {
-      strokeColor: config.colors[MathController.random(3, 5)],
-      coordinate: { x: col, y: MathController.random(0, config.height) },
-      radiusX: MathController.random(150, 300),
-      radiusY: 100,
-      rotation: MathController.random(0, config.width / 4),
+      color: { stroke: config.colors[MathController.random(3, 5)] },
+      parameters: {
+        coordinate: { x: col, y: MathController.random(0, config.height) },
+        radiusX: MathController.random(150, 300),
+        radiusY: 100,
+      },
+      rotate: MathController.random(0, config.width / 4),
+      element: Element.ELLIPSE,
     })
   }
 
