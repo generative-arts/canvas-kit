@@ -4,6 +4,7 @@ import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
 import { TriangleController } from './controller/triangle.controller'
+import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
 
 async function run() {
@@ -28,10 +29,15 @@ async function run() {
       }
 
       TriangleController.triangle(config, {
-        fillColor: colour,
-        strokeColor: 'black',
-        start: { x: i, y: j },
-        lenght: 200,
+        color: {
+          fill: colour,
+          stroke: 'black',
+        },
+        parameters: {
+          start: { x: i, y: j },
+          length: 200,
+        },
+        element: Element.TRIANGLE,
       })
     }
   }
