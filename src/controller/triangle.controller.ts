@@ -1,11 +1,13 @@
-import { Coordinate } from '../types/Coordinate.type'
 import { Config } from '../types/Config.type'
+import { Coordinate } from '../types/Coordinate.type'
+import { ElementConfig } from '../types/ElementConfig.type'
+import { ElementController } from './element.controller'
 
-export interface TriangleConfig {
-  strokeColor?: string
-  fillColor?: string
-  start: Coordinate
-  lenght: number
+export interface TriangleConfig extends ElementConfig {
+  parameters: {
+    start: Coordinate
+    length: number
+  }
 }
 
 export class TriangleController {
@@ -13,26 +15,22 @@ export class TriangleController {
     config: Config,
     triangleConfig: TriangleConfig,
   ): Config {
-    config.ctx.beginPath()
-    config.ctx.fillStyle = triangleConfig.fillColor
-    config.ctx.moveTo(triangleConfig.start.x, triangleConfig.start.y)
-    config.ctx.lineTo(
-      triangleConfig.start.x - triangleConfig.lenght / 2,
-      triangleConfig.start.y + triangleConfig.lenght / 2,
+    ElementController.preProcessing(config, triangleConfig)
+
+    config.ctx.moveTo(
+      triangleConfig.parameters.start.x,
+      triangleConfig.parameters.start.y,
     )
     config.ctx.lineTo(
-      triangleConfig.start.x + triangleConfig.lenght / 2,
-      triangleConfig.start.y + triangleConfig.lenght / 2,
+      triangleConfig.parameters.start.x - triangleConfig.parameters.length / 2,
+      triangleConfig.parameters.start.y + triangleConfig.parameters.length / 2,
     )
-    config.ctx.fill()
+    config.ctx.lineTo(
+      triangleConfig.parameters.start.x + triangleConfig.parameters.length / 2,
+      triangleConfig.parameters.start.y + triangleConfig.parameters.length / 2,
+    )
 
-    config.ctx.closePath()
-
-    if (triangleConfig.strokeColor) {
-      config.ctx.strokeStyle = triangleConfig.strokeColor
-      config.ctx.stroke()
-    }
-
+    ElementController.postProcessing(config, triangleConfig)
     return config
   }
 }

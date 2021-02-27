@@ -1,39 +1,35 @@
 /* eslint-disable id-length */
 import { Config } from '../types/Config.type'
 import { Coordinate } from '../types/Coordinate.type'
+import { ElementConfig } from '../types/ElementConfig.type'
+import { ElementController } from './element.controller'
 
-export interface EllipseConfig {
-  coordinate: Coordinate
-  radiusX: number
-  radiusY: number
-  rotation?: number
-  strokeColor?: string
-  fillColor?: string
+export interface EllipseConfig extends ElementConfig {
+  parameters: {
+    coordinate: Coordinate
+    radiusX: number
+    radiusY: number
+    rotation?: number
+  }
 }
 
 export class EllipseController {
   public static ellipse(config: Config, ellipseConfig: EllipseConfig): Config {
+    ElementController.preProcessing(config, ellipseConfig)
+
     const startAngle: number = 0
     const endAngle: number = 2 * Math.PI
-    config.ctx.beginPath()
     config.ctx.ellipse(
-      ellipseConfig.coordinate.x,
-      ellipseConfig.coordinate.y,
-      ellipseConfig.radiusX,
-      ellipseConfig.radiusY,
-      ellipseConfig.rotation ? ellipseConfig.rotation : 0,
+      ellipseConfig.parameters.coordinate.x,
+      ellipseConfig.parameters.coordinate.y,
+      ellipseConfig.parameters.radiusX,
+      ellipseConfig.parameters.radiusY,
+      ellipseConfig.parameters.rotation ? ellipseConfig.parameters.rotation : 0,
       startAngle,
       endAngle,
     )
-    config.ctx.closePath()
-    if (ellipseConfig.fillColor) {
-      config.ctx.fillStyle = ellipseConfig.fillColor
-      config.ctx.fill()
-    }
-    if (ellipseConfig.strokeColor) {
-      config.ctx.strokeStyle = ellipseConfig.strokeColor
-      config.ctx.stroke()
-    }
+
+    ElementController.postProcessing(config, ellipseConfig)
     return config
   }
 }

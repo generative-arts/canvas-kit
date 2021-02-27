@@ -1,26 +1,30 @@
 /* eslint-disable id-length */
-import { Coordinate } from '../types/Coordinate.type'
 import { Config } from '../types/Config.type'
+import { Coordinate } from '../types/Coordinate.type'
+import { ElementConfig } from '../types/ElementConfig.type'
+import { ElementController } from './element.controller'
 
-export interface CircleConfig {
-  color: string
-  center: Coordinate
-  r: number
+export interface CircleConfig extends ElementConfig {
+  parameters: {
+    center: Coordinate
+    r: number
+  }
 }
 
 export class CircleController {
   public static circle(config: Config, circleConfig: CircleConfig): Config {
-    config.ctx.beginPath()
+    ElementController.preProcessing(config, circleConfig)
+
     config.ctx.fillStyle = circleConfig.color
     config.ctx.arc(
-      circleConfig.center.x,
-      circleConfig.center.y,
-      circleConfig.r,
+      circleConfig.parameters.center.x,
+      circleConfig.parameters.center.y,
+      circleConfig.parameters.r,
       0,
       2 * Math.PI,
     )
-    config.ctx.fill()
-    config.ctx.closePath()
+
+    ElementController.postProcessing(config, circleConfig)
     return config
   }
 }
