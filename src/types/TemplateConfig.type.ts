@@ -11,8 +11,8 @@ export interface TemplateConfig {
   elements: {
     serviceTask?: number
     userTask?: number
-    tasks: number
-    exclusiveGateways: number
-    endEvents: number
+    tasks?: number
+    exclusiveGateways?: number
+    endEvents?: number
   }
 }

@@ -10,6 +10,30 @@ import { RectangleController } from './controller/rectangle.controller'
 import { MathController } from './controller/utils/math.controller'
 import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
+import { Template } from './enums/Template.enum'
+import { SquareTemplate } from './templates/square.template'
+import { TemplateConfig } from './types/TemplateConfig.type'
+
+/*async function run() {
+  const templateConfig: TemplateConfig = {
+    name: Template.ELLIPSE,
+    colors: [
+      '247,37,133',
+      '114,9,183',
+      '58,12,163',
+      '72,149,239',
+      '76,201,240',
+    ],
+    dimensions: {
+      width: 1080,
+      height: 1080,
+    },
+    config: [],
+    elements: {
+      userTask: 10,
+      serviceTask: 5,
+    },
+  }*/
 
 async function run() {
   let config: Config = {
@@ -19,14 +43,14 @@ async function run() {
     // colors: ['#0F0506','#32373B','#323C48','#42494D','#E2E2DF','#FFFFFF','#DBE0E6','#F5F5F4', ],
     colors: ['#7209b7', '#3a0ca3', '#266478', '#f72585', '#4895ef', '#4cc9f0'],
   }
-  const lightTaks = 77
-  const darkTask = 70
+  const lightTaks = 100
+  const darkTask = 300
 
   config = CanvasController.init(config)
   if (lightTaks > darkTask) {
-    config = BackgroundController.fill(config, 'black') //'#8797AB'
+    config = BackgroundController.fill(config, 'black')
   } else {
-    config = BackgroundController.fill(config, 'white')
+    config = BackgroundController.fill(config, '#8797AB')
   }
 
   const total = lightTaks + darkTask
@@ -78,11 +102,14 @@ async function run() {
     col++
   ) {
     EllipseController.ellipse(config, {
-      strokeColor: config.colors[MathController.random(0, 2)],
-      coordinate: { x: col, y: MathController.random(0, config.height) },
-      radiusX: MathController.random(150, 300),
-      radiusY: 100,
-      rotation: MathController.random(col, config.width / 4),
+      color: { stroke: config.colors[MathController.random(0, 2)] },
+      parameters: {
+        coordinate: { x: col, y: MathController.random(0, config.height) },
+        radiusX: MathController.random(150, 300),
+        radiusY: 100,
+      },
+      rotate: MathController.random(col, config.width / 4),
+      element: Element.ELLIPSE,
     })
   }
   /*
