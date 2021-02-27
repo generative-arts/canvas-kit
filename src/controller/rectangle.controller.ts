@@ -1,6 +1,8 @@
+/* eslint-disable id-length */
 import { Config } from '../types/Config.type'
 import { Coordinate } from '../types/Coordinate.type'
 import { ElementConfig } from '../types/ElementConfig.type'
+import { ElementController } from './element.controller'
 
 export interface RectangleConfig extends ElementConfig {
   parameters: {
@@ -15,36 +17,25 @@ export class RectangleController {
     config: Config,
     rectangleConfig: RectangleConfig,
   ): Config {
-    if (rectangleConfig.rotate) {
-      const centerX =
+    const center: Coordinate = {
+      x:
         rectangleConfig.parameters.start.x +
-        rectangleConfig.parameters.width / 2
-      const centerY =
+        rectangleConfig.parameters.width / 2,
+      y:
         rectangleConfig.parameters.start.y +
-        rectangleConfig.parameters.height / 2
-      config.ctx.translate(centerX, centerY)
-      config.ctx.rotate((rectangleConfig.rotate * Math.PI) / 180)
-      config.ctx.translate(-1 * centerX, -1 * centerY)
+        rectangleConfig.parameters.height / 2,
     }
-    config.ctx.beginPath()
+    ElementController.rotateIfConfigured(config, rectangleConfig, center)
+    ElementController.preProcessing(config, rectangleConfig)
+
     config.ctx.rect(
       rectangleConfig.parameters.start.x,
       rectangleConfig.parameters.start.y,
       rectangleConfig.parameters.width,
       rectangleConfig.parameters.height,
     )
-    if (rectangleConfig.color.fill) {
-      config.ctx.fillStyle = rectangleConfig.color.fill
-      config.ctx.fill()
-    }
-    if (rectangleConfig.color.stroke) {
-      config.ctx.strokeStyle = rectangleConfig.color.stroke
-      config.ctx.stroke()
-    }
-    config.ctx.closePath()
-    if (rectangleConfig.rotate) {
-      config.ctx.setTransform(1, 0, 0, 1, 0, 0)
-    }
+
+    ElementController.postProcessing(config, rectangleConfig)
     return config
   }
 }

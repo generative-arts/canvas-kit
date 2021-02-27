@@ -1,5 +1,6 @@
 /* eslint-disable id-length */
 import * as path from 'path'
+import { CAMUNDA } from './constants/Colors.constants'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import {
@@ -19,38 +20,14 @@ interface CoordinateWithDistance {
 }
 
 async function run() {
-  //   const rgbColors = [
-  //     '247,37,133',
-  //     '114,9,183',
-  //     '58,12,163',
-  //     '72,149,239',
-  //     '76,201,240',
-  //   ]
-  //   const colors = rgbColors.map(
-  //     (rgb) => `rgba(${rgb},0.${MathController.random(1, 9)})`,
-  //   )
-  const colors = [
-    '#FF1F00',
-    '#FF3800',
-    '#FF4700',
-    '#FF5400',
-    '#FF6100',
-    '#FF7000',
-    '#FF7D00',
-    '#FF8B00',
-  ]
+  const colors = CAMUNDA.map((color) => `#${color}`)
   let config: Config = {
     width: 1000,
     height: 1000,
     colors,
   }
   config = CanvasController.init(config)
-  //   config = BackgroundController.fill(config, 'white')
-  config = BackgroundController.fill(config, '#FF1F00')
-  //   config = BackgroundController.fill(
-  //     config,
-  //     config.colors[MathController.random(0, config.colors.length - 1)],
-  //   )
+  config = BackgroundController.fill(config, colors[0])
 
   const matrix = [
     [-1, -1],
