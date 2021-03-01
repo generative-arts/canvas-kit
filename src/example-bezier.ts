@@ -1,29 +1,23 @@
 /* eslint-disable id-length */
 import * as path from 'path'
-import { Coordinate } from 'types/Coordinate.type'
+import { CLOUDS } from './constants/Colors.constants'
 import { BackgroundController } from './controller/background.controller'
 import { BezierController } from './controller/bezier.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
+import { ColorController } from './controller/utils/color.controller'
 import { MathController } from './controller/utils/math.controller'
+import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
+import { Coordinate } from './types/Coordinate.type'
 
 async function run() {
-  const rgbColors = [
-    '247,37,133',
-    '114,9,183',
-    '58,12,163',
-    '72,149,239',
-    '76,201,240',
-  ]
-  const colors = rgbColors.map(
-    (rgb) => `rgba(${rgb},0.${MathController.random(1, 9)})`,
+  const colors = ColorController.randomAlpha(
+    ColorController.allHexToRgb(CLOUDS),
   )
   let config: Config = {
     width: 1000,
     height: 1000,
-    // colors: ['#C3E0E5', '#274472', '#5885AF', '#41729F'],
-    // colors: ['#4C5270', '#F652A0', '#36EEE0', '#BCECE0'],
     colors,
   }
   config = CanvasController.init(config)
@@ -32,66 +26,7 @@ async function run() {
   const iterations = 100
   const smallBezierIterations = 300
 
-  // const startY = MathController.random(0, config.height)
-  // const endY = MathController.random(0, config.height)
-
   for (let i = 0; i < iterations; i++) {
-    // BezierController.bezier(config, {
-    //   start: {
-    //     x: 0,
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   end: {
-    //     x: config.width,
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   bezier1: {
-    //     x: config.width / 4,
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   bezier2: {
-    //     x: 3 * (config.width / 4),
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   strokeColor: config.colors[i % config.colors.length],
-    // })
-    // BezierController.bezier(config, {
-    //   start: {
-    //     x: 0,
-    //     y: startY,
-    //   },
-    //   end: {
-    //     x: config.width,
-    //     y: endY,
-    //   },
-    //   bezier1: {
-    //     x: config.width / 4,
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   bezier2: {
-    //     x: 3 * (config.width / 4),
-    //     y: MathController.random(0, config.height),
-    //   },
-    //   strokeColor: config.colors[i % config.colors.length],
-    // })
-    // const startY = MathController.random(0, config.height)
-    // const endY = MathController.random(0, config.height)
-
-    // const start: Coordinate = {
-    //   x: MathController.random(
-    //     MathController.random(0, config.width / 2),
-    //     config.width / 2,
-    //   ),
-    //   y: MathController.random(0, config.height),
-    // }
-    // const end: Coordinate = {
-    //   x: MathController.random(
-    //     MathController.random(config.width / 2, config.width),
-    //     config.width,
-    //   ),
-    //   y: MathController.random(0, config.height),
-    // }
-
     const start: Coordinate = {
       x: 0,
       y: (config.height / iterations) * i,
@@ -131,17 +66,22 @@ function smallBezier(
 ) {
   for (let i = 0; i < iterations; i++) {
     BezierController.bezier(config, {
-      start,
-      end,
-      bezier1: {
-        x: config.width / 4,
-        y: MathController.random(0, config.height),
+      parameters: {
+        start,
+        end,
+        bezier1: {
+          x: config.width / 4,
+          y: MathController.random(0, config.height),
+        },
+        bezier2: {
+          x: 3 * (config.width / 4),
+          y: MathController.random(0, config.height),
+        },
       },
-      bezier2: {
-        x: 3 * (config.width / 4),
-        y: MathController.random(0, config.height),
+      color: {
+        stroke: config.colors[i % config.colors.length],
       },
-      strokeColor: config.colors[i % config.colors.length],
+      element: Element.BEZIER,
     })
   }
 }

@@ -1,10 +1,10 @@
 import { Config } from '../types/Config.type'
 import { Coordinate } from '../types/Coordinate.type'
+import { ElementConfig } from '../types/ElementConfig.type'
+import { ElementController } from './element.controller'
 
-export interface FreeFormConfig {
-  strokeColor?: string
-  fillColor?: string
-  coordinates: Coordinate[]
+export interface FreeFormConfig extends ElementConfig {
+  parameters: { coordinates: Coordinate[] }
 }
 
 export class FreeFormController {
@@ -12,30 +12,22 @@ export class FreeFormController {
     config: Config,
     freeformConfig: FreeFormConfig,
   ): Config {
-    if (freeformConfig.coordinates.length < 3) {
-      // We need at least 3 points for a free form
+    if (freeformConfig.parameters.coordinates.length < 2) {
+      // We need at least 2 points for a free form
       return
     }
-    config.ctx.beginPath()
+    ElementController.preProcessing(config, freeformConfig)
     config.ctx.moveTo(
-      freeformConfig.coordinates[0].x,
-      freeformConfig.coordinates[0].y,
+      freeformConfig.parameters.coordinates[0].x,
+      freeformConfig.parameters.coordinates[0].y,
     )
-    for (let i = 1; i < freeformConfig.coordinates.length; i++) {
+    for (let i = 1; i < freeformConfig.parameters.coordinates.length; i++) {
       config.ctx.lineTo(
-        freeformConfig.coordinates[i].x,
-        freeformConfig.coordinates[i].y,
+        freeformConfig.parameters.coordinates[i].x,
+        freeformConfig.parameters.coordinates[i].y,
       )
     }
-    config.ctx.closePath()
-    if (freeformConfig.fillColor) {
-      config.ctx.fillStyle = freeformConfig.fillColor
-      config.ctx.fill()
-    }
-    if (freeformConfig.strokeColor) {
-      config.ctx.strokeStyle = freeformConfig.strokeColor
-      config.ctx.stroke()
-    }
+    ElementController.postProcessing(config, freeformConfig)
     return config
   }
 }

@@ -5,7 +5,9 @@ export interface ElementConfig {
     stroke?: string
     fill?: string
   }
+  lineWidth?: number
   rotate?: number
+  closePath?: boolean
   parameters: any
   element: Element
 }
