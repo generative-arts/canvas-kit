@@ -26,7 +26,7 @@
     "example-random-forms": "ts-node ./src/example-random-forms.ts",
     "example-rainbow": "ts-node ./src/example-rainbow.ts",
     "example-rainbow2": "ts-node ./src/example-rainbow2.ts",
-    "example-svg": "ts-node ./src/example-svg.ts",
+    "example-triangle": "ts-node ./src/example-triangle.ts",
     "build": "tsc --p tsconfig.json",
     "dist": "node dist/index.js",
     "test": "jest --config jest.config.js --runInBand true",
