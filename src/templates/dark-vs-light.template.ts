@@ -54,7 +54,7 @@ export class DarkVsLightTemplate {
           radiusX: MathController.random(150, 300),
           radiusY: 100,
         },
-        color: {},
+        color: { fill: '0' },
         rotate: MathController.random(column, this.config.width / 4),
         //width: this.width,
         //height: this.height,
@@ -77,7 +77,7 @@ export class DarkVsLightTemplate {
           radiusX: MathController.random(150, 300),
           radiusY: 100,
         },
-        color: {},
+        color: { fill: '1' },
         rotate: MathController.random(column, this.config.width / 4),
         //width: this.width,
         //height: this.height,
@@ -87,4 +87,6 @@ export class DarkVsLightTemplate {
     }
     return this.minimizeConfigController.get()
   }
+
+  // Farbe: 1 oder 0 mitgeben in die minimizeConfig für hell oder dunkel
 }

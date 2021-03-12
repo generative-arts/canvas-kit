@@ -1,17 +1,14 @@
 /* eslint-disable id-length */
-import { BezierController } from 'controller/bezier.controller'
 import { EllipseController } from './controller/ellipse.controller'
 import { totalmem } from 'os'
 import * as path from 'path'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
-import { RectangleController } from './controller/rectangle.controller'
 import { MathController } from './controller/utils/math.controller'
 import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
 import { Template } from './enums/Template.enum'
-import { SquareTemplate } from './templates/square.template'
 import { TemplateConfig } from './types/TemplateConfig.type'
 
 /*async function run() {
