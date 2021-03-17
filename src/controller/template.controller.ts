@@ -5,6 +5,7 @@ import { ElementConfig } from '../types/ElementConfig.type'
 import { RectangleController } from './rectangle.controller'
 import { CanvasController } from './canvas.controller'
 import { BackgroundController } from './background.controller'
+import { EllipseController } from './ellipse.controller'
 
 export class TemplateController {
   public static generateArt(
@@ -24,6 +25,9 @@ export class TemplateController {
       switch (elementConfig.element) {
         case Element.RECTANGLE:
           RectangleController.rectangle(config, elementConfig)
+          break
+        case Element.ELLIPSE:
+          EllipseController.ellipse(config, elementConfig)
           break
       }
     }

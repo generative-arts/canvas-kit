@@ -5,13 +5,13 @@ import * as path from 'path'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { OutputController } from './controller/output.controller'
-import { MathController } from './controller/utils/math.controller'
-import { Element } from './enums/Element.enum'
-import { Config } from './types/Config.type'
+import { TemplateController } from './controller/template.controller'
+import { JsonExportController } from './controller/utils/jsonexport.controller'
 import { Template } from './enums/Template.enum'
 import { TemplateConfig } from './types/TemplateConfig.type'
+import { DarkVsLightTemplate } from './templates/dark-vs-light.template'
 
-/*async function run() {
+async function run() {
   const templateConfig: TemplateConfig = {
     name: Template.ELLIPSE,
     colors: [
@@ -30,9 +30,27 @@ import { TemplateConfig } from './types/TemplateConfig.type'
       userTask: 10,
       serviceTask: 5,
     },
-  }*/
+  }
 
-async function run() {
+  const darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
+  const elementConfigs = darkVsLightTemplate.getElementConfigs()
+
+  const config = TemplateController.generateArt(templateConfig, elementConfigs)
+
+  await JsonExportController.save(
+    path.resolve(__dirname, '..', 'output', 'dark-vs-light-min2.json'),
+    JSON.stringify(templateConfig.config),
+  )
+
+  await OutputController.save(
+    config,
+    path.resolve(__dirname, '..', 'output', 'dark-vs-light.png'),
+  )
+}
+
+run()
+
+/*async function run() {
   let config: Config = {
     width: 1080,
     height: 1080,
@@ -80,7 +98,7 @@ async function run() {
           })
       }*/
 
-  for (let col = 0; col < columnCountLight; col++) {
+/*for (let col = 0; col < columnCountLight; col++) {
     EllipseController.ellipse(config, {
       color: { stroke: config.colors[MathController.random(3, 5)] },
       parameters: {
@@ -91,9 +109,9 @@ async function run() {
       rotate: MathController.random(0, config.width / 4),
       element: Element.ELLIPSE,
     })
-  }
+  }*/
 
-  for (
+/* for (
     let col = columnCountLight;
     col < columnCountLight + columnCountDark;
     col++
@@ -108,8 +126,8 @@ async function run() {
       rotate: MathController.random(col, config.width / 4),
       element: Element.ELLIPSE,
     })
-  }
-  /*
+  }*/
+/*
   //for(let row = 0; row < 1000; row += 4){
     for(let col = columnCountLight; col < columnCountDark+ columnCountLight; col ++){
       RectangleController.rectangle(config, {
@@ -127,10 +145,10 @@ async function run() {
     }
 //} */
 
-  await OutputController.save(
+/*  await OutputController.save(
     config,
     path.resolve(__dirname, '..', 'output', 'dark-vs-light.png'),
   )
-}
+} 
 
-run()
+run() */

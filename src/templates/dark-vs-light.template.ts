@@ -11,7 +11,6 @@ import { TemplateConfig } from '../types/TemplateConfig.type'
 export class DarkVsLightTemplate {
   private minimizeConfigController: MinimizeConfigController
   private config: Config
-  private magnetPoints: Coordinate[] = []
 
   private columns: number
   private rows: number
@@ -20,6 +19,9 @@ export class DarkVsLightTemplate {
   private taskTotal: number
   private columnsLight: number
   private columnsDark: number
+
+  private radiusX: number
+  private radiusY: number
 
   constructor(private templateConfig: TemplateConfig) {
     this.minimizeConfigController = new MinimizeConfigController(
@@ -54,10 +56,8 @@ export class DarkVsLightTemplate {
           radiusX: MathController.random(150, 300),
           radiusY: 100,
         },
-        color: { fill: '0' },
+        color: { stroke: '0' },
         rotate: MathController.random(column, this.config.width / 4),
-        //width: this.width,
-        //height: this.height,
       }
 
       this.minimizeConfigController.add(elementConfig)
@@ -77,10 +77,8 @@ export class DarkVsLightTemplate {
           radiusX: MathController.random(150, 300),
           radiusY: 100,
         },
-        color: { fill: '1' },
+        color: { stroke: '1' },
         rotate: MathController.random(column, this.config.width / 4),
-        //width: this.width,
-        //height: this.height,
       }
 
       this.minimizeConfigController.add(elementConfig)
@@ -89,4 +87,39 @@ export class DarkVsLightTemplate {
   }
 
   // Farbe: 1 oder 0 mitgeben in die minimizeConfig für hell oder dunkel
+  public getElementConfigs(): ElementConfig[] {
+    const elementConfigsFromMin = this.minimizeConfigController.getElementConfigs()
+
+    const elementConfigs = elementConfigsFromMin.map((elementConfig) => {
+      const updatedElementConfig: ElementConfig = elementConfig
+      updatedElementConfig.parameters.radiusX = this.radiusX
+      updatedElementConfig.parameters.radiusY = this.radiusY
+      const color = this.getColorsForElement(updatedElementConfig)
+      updatedElementConfig.color = color
+      return updatedElementConfig
+    })
+    return elementConfigs
+  }
+
+  private getColorsForElement(
+    elementConfig: ElementConfig,
+  ): { stroke: string } {
+    if (elementConfig[5] === 0) {
+      const strokeColor = this.config.colors[
+        MathController.random(0, this.config.colors.length / 2 - 1)
+      ]
+      const stroke = `rgba(${strokeColor})`
+      return { stroke }
+    } else {
+      const strokeColor = this.config.colors[
+        MathController.random(
+          this.config.colors.length / 2,
+          this.config.colors.length,
+        )
+      ]
+      const stroke = `rgba(${strokeColor})`
+
+      return { stroke }
+    }
+  }
 }
