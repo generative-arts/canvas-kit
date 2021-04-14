@@ -29,7 +29,7 @@ export class MinimizeConfigController {
           elementConfig.parameters.radiusX,
           elementConfig.parameters.radiusY,
           elementConfig.rotate,
-          elementConfig.color.fill,
+          Number(elementConfig.color.stroke),
         ])
         break
     }
@@ -59,7 +59,9 @@ export class MinimizeConfigController {
             return {
               element: minConfig[0],
               rotate: Number(minConfig[5]),
-              color: { fill: minConfig[6] },
+              color: {
+                stroke: `${minConfig[6]}`, // 0 = light, 1 = dark
+              },
               parameters: {
                 coordinate: {
                   x: minConfig[1],
