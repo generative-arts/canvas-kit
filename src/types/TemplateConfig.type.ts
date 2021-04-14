@@ -9,8 +9,10 @@ export interface TemplateConfig {
   }
   config: any[][]
   elements: {
-    tasks: number
-    exclusiveGateways: number
-    endEvents: number
+    serviceTask?: number
+    userTask?: number
+    tasks?: number
+    exclusiveGateways?: number
+    endEvents?: number
   }
 }

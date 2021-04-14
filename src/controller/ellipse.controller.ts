@@ -1,7 +1,7 @@
 /* eslint-disable id-length */
+import { ElementConfig } from '../types/ElementConfig.type'
 import { Config } from '../types/Config.type'
 import { Coordinate } from '../types/Coordinate.type'
-import { ElementConfig } from '../types/ElementConfig.type'
 import { ElementController } from './element.controller'
 
 export interface EllipseConfig extends ElementConfig {

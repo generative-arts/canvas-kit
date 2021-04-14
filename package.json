@@ -22,6 +22,7 @@
     "example-ellipse": "ts-node ./src/example-ellipse.ts",
     "example-bezier": "ts-node ./src/example-bezier.ts",
     "example-rectangle": "ts-node ./src/example-rectangle.ts",
+    "example-dark-vs-light": "ts-node ./src/example-dark-vs-light.ts",
     "example-freeform": "ts-node ./src/example-freeform.ts",
     "example-random-forms": "ts-node ./src/example-random-forms.ts",
     "example-rainbow": "ts-node ./src/example-rainbow.ts",
