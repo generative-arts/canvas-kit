@@ -11,11 +11,11 @@ async function run() {
   const templateConfig: TemplateConfig = {
     name: Template.ELLIPSE,
     colors: [
-      '247,37,133',
-      '114,9,183',
-      '58,12,163',
-      '72,149,239',
-      '76,201,240',
+      '0,245,212',
+      '0,187,249',
+      '254,228,64',
+      '241, 91, 181',
+      '155,93,229',
     ],
     dimensions: {
       width: 1000,
@@ -23,24 +23,34 @@ async function run() {
     },
     config: [],
     elements: {
-      userTask: 5,
-      serviceTask: 5,
+      userTask: 2,
+      serviceTask: 6,
     },
   }
 
-  const columnTotal = Math.min(
-    15,
-    templateConfig.elements.userTask + templateConfig.elements.serviceTask,
-  )
+  const columnTotal =
+    templateConfig.elements.userTask + templateConfig.elements.serviceTask
 
-  for (let column = 0; column < columnTotal; column++) {
+  const proportionServiceTask =
+    columnTotal / templateConfig.elements.serviceTask
+  const propportionUserTask = columnTotal / templateConfig.elements.userTask
+
+  for (let column = 0; column < templateConfig.elements.serviceTask; column++) {
     let darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
     templateConfig.config = darkVsLightTemplate.addIteration(
       column,
       'servicetask',
+      proportionServiceTask,
     )
-    darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
-    templateConfig.config = darkVsLightTemplate.addIteration(column, 'usertask')
+  }
+
+  for (let column = 0; column < templateConfig.elements.userTask; column++) {
+    let darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
+    templateConfig.config = darkVsLightTemplate.addIteration(
+      column,
+      'usertask',
+      propportionUserTask,
+    )
   }
 
   const darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
