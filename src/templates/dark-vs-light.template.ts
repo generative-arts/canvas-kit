@@ -54,8 +54,8 @@ export class DarkVsLightTemplate {
           element: Element.ELLIPSE,
           parameters: {
             coordinate: { x, y },
-            radiusX: MathController.random(150, 300),
-            radiusY: 100,
+            radiusX: MathController.random(10, 150),
+            radiusY: MathController.random(10, 100),
           },
           color: { stroke: MathController.random(0, 1).toString() },
           rotate: MathController.random(column, this.config.width / 4),
@@ -87,8 +87,8 @@ export class DarkVsLightTemplate {
           element: Element.ELLIPSE,
           parameters: {
             coordinate: { x, y },
-            radiusX: MathController.random(150, 300),
-            radiusY: 100,
+            radiusX: MathController.random(10, 150),
+            radiusY: MathController.random(10, 100),
           },
           color: { stroke: MathController.random(2, 4).toString() },
 

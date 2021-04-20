@@ -23,8 +23,8 @@ async function run() {
     },
     config: [],
     elements: {
-      userTask: 2,
-      serviceTask: 6,
+      userTask: 6,
+      serviceTask: 7,
     },
   }
 
