@@ -35,19 +35,27 @@ async function run() {
     columnTotal / templateConfig.elements.serviceTask
   const propportionUserTask = columnTotal / templateConfig.elements.userTask
 
-  for (let column = 0; column < templateConfig.elements.serviceTask; column++) {
+  for (
+    let iteration = 0;
+    iteration < templateConfig.elements.serviceTask;
+    iteration++
+  ) {
     let darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
     templateConfig.config = darkVsLightTemplate.addIteration(
-      column,
+      iteration,
       'servicetask',
       proportionServiceTask,
     )
   }
 
-  for (let column = 0; column < templateConfig.elements.userTask; column++) {
+  for (
+    let iteration = 0;
+    iteration < templateConfig.elements.userTask;
+    iteration++
+  ) {
     let darkVsLightTemplate = new DarkVsLightTemplate(templateConfig)
     templateConfig.config = darkVsLightTemplate.addIteration(
-      column,
+      iteration,
       'usertask',
       propportionUserTask,
     )
