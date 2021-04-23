@@ -1,4 +1,5 @@
 /* eslint-disable id-length */
+import { Console } from 'console'
 import { MathController } from '../controller/utils/math.controller'
 import { MinimizeConfigController } from '../controller/utils/minimizeConfig.controller'
 import { Element } from '../enums/Element.enum'
@@ -21,48 +22,83 @@ export class DarkVsLightTemplate {
       height: templateConfig.dimensions.height,
       colors: templateConfig.colors,
     }
-    this.columns = templateConfig.dimensions.width * 10
+    this.columns = templateConfig.dimensions.width
   }
 
   public addIteration(
     iteration: number,
     type: 'usertask' | 'servicetask',
+    proportion: number,
   ): any[][] {
-    const step =
-      this.columns /
-      MathController.valueOnRange({
-        inputMax: 10,
-        outputMax: 1000,
-        value:
-          type === 'usertask'
-            ? this.templateConfig.elements.userTask
-            : this.templateConfig.elements.serviceTask,
-      })
-    for (let column = iteration; column < this.columns; column += step) {
-      const x = MathController.valueOnRange({
-        inputMax: this.columns,
-        outputMax: this.config.width,
-        value: column,
-      })
-      const y = MathController.valueOnRange({
-        inputMax: this.columns,
-        outputMax: this.config.height,
-        value: MathController.random(0, this.columns),
-      })
+    if (type === 'servicetask') {
+      const step = 3
 
-      const elementConfig: ElementConfig = {
-        element: Element.ELLIPSE,
-        parameters: {
-          coordinate: { x, y },
-          radiusX: MathController.random(150, 300),
-          radiusY: 100,
-        },
-        color: { stroke: type === 'usertask' ? '0' : '1' },
-        rotate: MathController.random(column, this.config.width / 4),
+      for (
+        let column = iteration;
+        column < this.columns / proportion;
+        column += step
+      ) {
+        const x = MathController.valueOnRange({
+          inputMax: this.columns,
+          outputMax: this.config.width,
+          value: column,
+        })
+
+        const y = MathController.valueOnRange({
+          inputMax: this.columns,
+          outputMax: this.config.height,
+          value: MathController.random(0, this.columns),
+        })
+
+        const elementConfig: ElementConfig = {
+          element: Element.ELLIPSE,
+          parameters: {
+            coordinate: { x, y },
+            radiusX: MathController.random(10, 150),
+            radiusY: MathController.random(10, 100),
+          },
+          color: { stroke: MathController.random(0, 1).toString() },
+          rotate: MathController.random(column, this.config.width / 4),
+        }
+
+        this.minimizeConfigController.add(elementConfig)
       }
+    } else if (type === 'usertask') {
+      const step = 3
 
-      this.minimizeConfigController.add(elementConfig)
+      for (
+        let column = this.columns - this.columns / proportion;
+        column < this.columns;
+        column += step
+      ) {
+        const x = MathController.valueOnRange({
+          inputMax: this.columns,
+          outputMax: this.config.width,
+          value: column,
+        })
+
+        const y = MathController.valueOnRange({
+          inputMax: this.columns,
+          outputMax: this.config.height,
+          value: MathController.random(0, this.columns),
+        })
+
+        const elementConfig: ElementConfig = {
+          element: Element.ELLIPSE,
+          parameters: {
+            coordinate: { x, y },
+            radiusX: MathController.random(10, 150),
+            radiusY: MathController.random(10, 100),
+          },
+          color: { stroke: MathController.random(2, 4).toString() },
+
+          rotate: MathController.random(column, this.config.width / 4),
+        }
+
+        this.minimizeConfigController.add(elementConfig)
+      }
     }
+
     return this.minimizeConfigController.get()
   }
 
