@@ -21,6 +21,7 @@
     "try": "ts-node ./src/try.ts",
     "example-ellipse": "ts-node ./src/example-ellipse.ts",
     "example-magic-circle": "ts-node ./src/example-magic-circle.ts",
+    "example-circle-in-circle": "ts-node ./src/example-circle-in-circle.ts",
     "example-bezier": "ts-node ./src/example-bezier.ts",
     "example-rectangle": "ts-node ./src/example-rectangle.ts",
     "example-dark-vs-light": "ts-node ./src/example-dark-vs-light.ts",
