@@ -8,6 +8,11 @@ export interface CircleConfig extends ElementConfig {
   parameters: {
     center: Coordinate
     r: number
+    angle?: {
+      startDegree?: number
+      endDegree?: number
+    }
+    counterClockwise?: boolean
   }
 }
 
@@ -20,11 +25,22 @@ export class CircleController {
       circleConfig.parameters.center.x,
       circleConfig.parameters.center.y,
       circleConfig.parameters.r,
-      0,
-      2 * Math.PI,
+      circleConfig.parameters.angle && circleConfig.parameters.angle.startDegree
+        ? CircleController.toRadians(circleConfig.parameters.angle.startDegree)
+        : 0,
+      circleConfig.parameters.angle && circleConfig.parameters.angle.endDegree
+        ? CircleController.toRadians(circleConfig.parameters.angle.endDegree)
+        : 2 * Math.PI,
+      circleConfig.parameters.counterClockwise !== undefined
+        ? circleConfig.parameters.counterClockwise
+        : false,
     )
 
     ElementController.postProcessing(config, circleConfig)
     return config
+  }
+
+  private static toRadians(degree: number): number {
+    return (degree * Math.PI) / 180
   }
 }
