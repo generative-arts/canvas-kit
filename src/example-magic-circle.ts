@@ -13,7 +13,7 @@ import { Coordinate } from './types/Coordinate.type'
 
 async function run() {
   const colors = ColorController.randomAlpha(
-    ColorController.allHexToRgb(CAMUNDA),
+    ColorController.allHexToRgb([...CAMUNDA, ...SUNSET, ...DAFTPUNK]),
   )
 
   let config: Config = {
