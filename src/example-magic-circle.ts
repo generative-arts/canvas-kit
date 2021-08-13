@@ -1,12 +1,13 @@
 /* eslint-disable id-length */
-import { MathController } from './controller/utils/math.controller'
 import * as path from 'path'
 import { CAMUNDA, DAFTPUNK, SUNSET } from './constants/Colors.constants'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { CircleController } from './controller/circle.controller'
 import { OutputController } from './controller/output.controller'
+import { CircleUtils } from './controller/utils/circle.utils'
 import { ColorController } from './controller/utils/color.controller'
+import { MathController } from './controller/utils/math.controller'
 import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
 import { Coordinate } from './types/Coordinate.type'
@@ -50,7 +51,10 @@ async function run() {
   ) {
     // update base parameters depending on index
     maxAngleDifference = maxAngleDifferenceByRadius(radius)
-    circleSectionDifference = circleSectionDifferenceByRadius(radius)
+    // circleSectionDifference = circleSectionDifferenceByRadius(radius)
+    circleSectionDifference = CircleUtils.angleForLengthOnPerimeterByRadius(
+      radius,
+    )
 
     // loop over circles per radius
     let currentAngleStart = MathController.random(0, 360)
@@ -113,11 +117,6 @@ function maxAngleDifferenceByRadius(radius: number): number {
     return 30
   }
   return 20
-}
-
-function circleSectionDifferenceByRadius(radius: number): number {
-  const perimeter = 2 * Math.PI * radius
-  return (5 / perimeter) * 360
 }
 
 run()

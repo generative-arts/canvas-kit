@@ -1,12 +1,14 @@
 /* eslint-disable id-length */
-import { MathController } from './controller/utils/math.controller'
 import * as path from 'path'
 import { CAMUNDA, DAFTPUNK, SUNSET } from './constants/Colors.constants'
 import { BackgroundController } from './controller/background.controller'
 import { CanvasController } from './controller/canvas.controller'
 import { CircleConfig, CircleController } from './controller/circle.controller'
 import { OutputController } from './controller/output.controller'
+import { CircleUtils } from './controller/utils/circle.utils'
 import { ColorController } from './controller/utils/color.controller'
+import { MathController } from './controller/utils/math.controller'
+import { VectorUtils } from './controller/utils/vector.utils'
 import { Element } from './enums/Element.enum'
 import { Config } from './types/Config.type'
 import { Coordinate } from './types/Coordinate.type'
@@ -78,20 +80,22 @@ function generateSmallCircleConfig(
     10,
     radiusBigCircle * 0.8,
   )
-  const randomDegree = MathController.random(0, 360)
-  const bigCircleX = centerX + radiusBigCircle * Math.sin(randomDegree)
-  const bigCircleY = centerY + radiusBigCircle * Math.cos(randomDegree)
-
-  const smallCircleCenter: Coordinate = {
-    x:
-      bigCircleX +
-      (randomRadiusSmallCircle / radiusBigCircle) *
-        (centerX - Math.abs(bigCircleX)),
-    y:
-      bigCircleY +
-      (randomRadiusSmallCircle / radiusBigCircle) *
-        (centerY - Math.abs(bigCircleY)),
+  const center: Coordinate = {
+    x: centerX,
+    y: centerY,
   }
+  const randomDegree = MathController.random(0, 360)
+  const bigCircleCoordinate = CircleUtils.pointOnCircleOutlineByAngle(
+    center,
+    radiusBigCircle,
+    randomDegree,
+  )
+  const lineCoordinates = VectorUtils.lineWithLengthBetweenTwoPoints(
+    bigCircleCoordinate,
+    center,
+    randomRadiusSmallCircle,
+  )
+  const smallCircleCenter: Coordinate = lineCoordinates.end
 
   const smallCircleConfig: CircleConfig = {
     color: {
