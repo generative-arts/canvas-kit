@@ -26,24 +26,24 @@ async function run() {
   config = CanvasController.init(config)
   config = BackgroundController.fill(config, 'white')
 
-  const slices = 2000
+  const slices = 1000
 
   const width = 2 * config.width
 
   for (let i = 0; i < slices; i++) {
     const xCenter = (i * width) / slices - config.width / 2
     const bezierBalanceX = config.width / 10
-    const bezierBalanceY = config.height / 3
+    const bezierBalanceY = config.height / 8
 
     BezierController.bezier(config, {
       parameters: {
         start: {
           x: xCenter,
-          y: config.height,
+          y: config.height / 2,
         },
         end: {
-          x: xCenter + 200 + MathController.random(0, 20),
-          y: MathController.random(0, config.height / 5),
+          x: xCenter + 100 + MathController.random(0, 100),
+          y: MathController.random(0, config.height / 10),
         },
         bezier1: {
           x:
@@ -51,7 +51,7 @@ async function run() {
           y: 2 * bezierBalanceY,
         },
         bezier2: {
-          x: xCenter + bezierBalanceX,
+          x: xCenter + bezierBalanceX / 100,
           y: bezierBalanceY,
         },
       },

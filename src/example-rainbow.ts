@@ -1,5 +1,5 @@
 /* eslint-disable id-length */
-import { BezierController } from 'controller/bezier.controller'
+import { BezierController } from './controller/bezier.controller'
 import * as path from 'path'
 import { CLOUDS } from './constants/Colors.constants'
 import { BackgroundController } from './controller/background.controller'

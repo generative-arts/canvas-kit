@@ -24,6 +24,7 @@
     "example-rectangle": "ts-node ./src/example-rectangle.ts",
     "example-dark-vs-light": "ts-node ./src/example-dark-vs-light.ts",
     "example-freeform": "ts-node ./src/example-freeform.ts",
+    "example-github-user": "ts-node ./src/example-github-user.ts",
     "example-random-forms": "ts-node ./src/example-random-forms.ts",
     "example-rainbow": "ts-node ./src/example-rainbow.ts",
     "example-rainbow2": "ts-node ./src/example-rainbow2.ts",
